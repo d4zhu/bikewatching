@@ -76,7 +76,7 @@ map.on('load', async () => {
     id:    'boston-lanes',
     type:  'line',
     source:'boston_route',
-    paint: {'line-color':'green','line-width':4,'line-opacity':0.4}
+    paint: {'line-color':'blue','line-width':4,'line-opacity':0.4}
   });
 
   // 3.2 Cambridge bike lanes
