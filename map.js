@@ -76,19 +76,19 @@ map.on('load', async () => {
     id:    'boston-lanes',
     type:  'line',
     source:'boston_route',
-    paint: {'line-color':'#32D400','line-width':4,'line-opacity':0.6}
+    paint: {'line-color':'green','line-width':4,'line-opacity':0.4}
   });
 
   // 3.2 Cambridge bike lanes
   map.addSource('cambridge_route', {
     type: 'geojson',
-    data: 'assets/data/cambridge_bike_network.geojson'
+    data: 'assets/cambridge_bike_network.geojson'
   });
   map.addLayer({
     id:    'cambridge-lanes',
     type:  'line',
     source:'cambridge_route',
-    paint: {'line-color':'#32D400','line-width':4,'line-opacity':0.6}
+    paint: {'line-color':'blue','line-width':4,'line-opacity':0.4}
   });
 
   // 3.3 Fetch station info
