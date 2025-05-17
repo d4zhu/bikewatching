@@ -1,11 +1,142 @@
-/* Global styles */
+/*──────────────────────────────────────────────────────────*/
+/* 1. Shared color variables & mix logic for circles & legend */
+/*──────────────────────────────────────────────────────────*/
+:root {
+  --color-departures: steelblue;
+  --color-arrivals:   darkorange;
+}
+
+#map svg circle,
+.legend > div {
+  /* discrete steps are in --departure-ratio on each element */
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
+/*──────────────────────────────────────────────────────────*/
+/* 2. Global page layout */
+/*──────────────────────────────────────────────────────────*/
 body {
   font: 100%/1.5 system-ui, sans-serif;
-  display: flex;
-  flex-flow: column;
   max-width: 80em;
   min-height: 100vh;
-  box-sizing: border-box;
   margin: auto;
   padding: 1em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+/*──────────────────────────────────────────────────────────*/
+/* 3. Map container & overlay styling */
+/*──────────────────────────────────────────────────────────*/
+#map {
+  position: relative;      /* for absolute-positioned SVG */
+  width: 100%;
+  height: 80vh;            /* adjust as needed */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#map svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+  pointer-events: none;    /* let the map itself handle pan/zoom */
+}
+
+#map svg circle {
+  fill: var(--color);      /* mixed color based on departure ratio */
+  fill-opacity: 0.6;
+  stroke: #fff;
+  stroke-width: 0.5;
+  pointer-events: auto;    /* allow hover for tooltips */
+}
+
+/*──────────────────────────────────────────────────────────*/
+/* 4. Controls (header + slider) */
+/*──────────────────────────────────────────────────────────*/
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.time-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.time-filter label {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.time-display {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.time-display time {
+  font-weight: 600;
+}
+
+.time-display em.any-time {
+  font-style: italic;
+  color: #666;
+  font-size: 0.9em;
+}
+
+/*──────────────────────────────────────────────────────────*/
+/* 5. Fixed-width slider */
+/*──────────────────────────────────────────────────────────*/
+#timeSlider {
+  width: 250px;         /* fixed track length */
+  min-width: 250px;
+  max-width: 250px;
+  flex: 0 0 250px;      /* no grow, no shrink */
+}
+
+/*──────────────────────────────────────────────────────────*/
+/* 6. Legend styling (Design 2: swatches + labels) */
+/*──────────────────────────────────────────────────────────*/
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin: 1em 0;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.legend::before {
+  content: "Legend:";
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.legend > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend > div::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  background: var(--color);
+  flex-shrink: 0;
+  border: 1px solid #ccc;
+  border-radius: 0.2em;
 }

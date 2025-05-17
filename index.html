@@ -6,8 +6,39 @@
     <title>Bikewatching</title>
     <link rel="stylesheet" href="global.css" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <script src="map.js" type="module"></script>
+
+    <!-- Mapbox GL JS CSS -->
+    <link
+    href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
+    rel="stylesheet"
+    />
 </head>
 <body>
-    <h1>Welcome to an interactive visualization for bikewatching!</h1>
+    <h1>🚴🏼‍♀️ Bikewatching</h1>
+
+    <label class="time-filter">
+        <label for="timeSlider">Filter by time:</label>
+        <input
+        type="range"
+        id="timeSlider"
+        min="-1"
+        max="1440"
+        value="-1"
+        step="1"
+        />
+        <time id="selectedTime"></time>
+        <em class="any-time">(Any time)</em>
+    </label>
+
+    <div id="map">
+        <svg></svg>
+    </div>
+
+    <div class="legend">
+        <div style="--departure-ratio: 1">More departures</div>
+        <div style="--departure-ratio: 0.5">Balanced</div>
+        <div style="--departure-ratio: 0">More arrivals</div>
+    </div>
 </body>
 </html>
